@@ -1,0 +1,36 @@
+{
+  "name": "iris-vision-server",
+  "version": "1.0.0",
+  "description": "Iris Vision backend server - voice-first communication for blind users",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch _core/index.ts",
+    "build": "tsc",
+    "start": "node dist/_core/index.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@trpc/server": "11.7.2",
+    "axios": "^1.13.2",
+    "cookie": "^1.1.1",
+    "dotenv": "^16.6.1",
+    "drizzle-orm": "^0.44.7",
+    "express": "^4.22.1",
+    "google-auth-library": "^9.14.1",
+    "googleapis": "^139.0.0",
+    "jose": "6.1.0",
+    "mysql2": "^3.16.0",
+    "superjson": "^1.13.3",
+    "zod": "^4.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.25",
+    "@types/node": "^22.19.3",
+    "tsx": "^4.21.0",
+    "typescript": "~5.9.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
