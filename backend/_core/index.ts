@@ -3,10 +3,10 @@ import express from "express";
 import { createServer } from "http";
 import net from "net";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
-import { registerOAuthRoutes } from "./oauth";
-import { appRouter } from "../routers";
-import { createContext } from "./context";
-import { handleGmailTokenExchange } from "../gmail-token";
+import { registerOAuthRoutes } from "./oauth.js";
+import { appRouter } from "../routers.js";
+import { createContext } from "./context.js";
+import { handleGmailTokenExchange } from "../gmail-token.js";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise((resolve) => {
