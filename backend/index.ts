@@ -6,7 +6,7 @@
  * (dist/index.js) can be run directly by Railway or other deployment platforms.
  */
 
-import "./scripts/load-env.js";
+import "dotenv/config";
 export { startServer } from "./_core/index.js";
 
 // Start the server immediately when this module is loaded
