@@ -19,6 +19,7 @@ import type { EdgeInsets, Metrics, Rect } from "react-native-safe-area-context";
 import { trpc, createTRPCClient } from "@/lib/trpc";
 import { initManusRuntime, subscribeSafeAreaInsets } from "@/lib/_core/manus-runtime";
 import { AppStateProvider } from "@/lib/app-state";
+import { isOnboardingComplete } from "@/lib/onboarding-store";
 
 const DEFAULT_WEB_INSETS: EdgeInsets = { top: 0, right: 0, bottom: 0, left: 0 };
 const DEFAULT_WEB_FRAME: Rect = { x: 0, y: 0, width: 0, height: 0 };
@@ -33,9 +34,12 @@ export default function RootLayout() {
 
   const [insets, setInsets] = useState<EdgeInsets>(initialInsets);
   const [frame, setFrame] = useState<Rect>(initialFrame);
+  const [onboardingComplete, setOnboardingComplete] = useState<boolean | null>(null);
 
   useEffect(() => {
     initManusRuntime();
+    // Check if onboarding is complete
+    isOnboardingComplete().then(setOnboardingComplete);
   }, []);
 
   const handleSafeAreaUpdate = useCallback((metrics: Metrics) => {
@@ -80,8 +84,14 @@ export default function RootLayout() {
         <QueryClientProvider client={queryClient}>
           <AppStateProvider>
             <Stack screenOptions={{ headerShown: false }}>
-              <Stack.Screen name="(tabs)" />
-              <Stack.Screen name="oauth/callback" />
+              {onboardingComplete === false ? (
+                <Stack.Screen name="onboarding" />
+              ) : (
+                <>
+                  <Stack.Screen name="(tabs)" />
+                  <Stack.Screen name="oauth/callback" />
+                </>
+              )}
             </Stack>
             <StatusBar style="light" />
           </AppStateProvider>
